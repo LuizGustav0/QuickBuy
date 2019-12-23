@@ -11,6 +11,7 @@ namespace QuickBuy.Dominio.Entidades
         public int Id { get; set; }
         public DateTime DataPedido  { get; set; }
         public int UsuarioId { get; set; }
+        public virtual Usuario Usuario { get; set; }
         public DateTime DataPrevisaoEntrega { get; set; }
         public string CEP { get; set; }
         public string Estado { get; set; }
@@ -31,16 +32,26 @@ namespace QuickBuy.Dominio.Entidades
             LimparMensagensValidacao();
 
             if (!ItensPedidos.Any())
-            {
-                AdicionarCritica("Pedido não pode ficar sem item de pedido");
-
-  
-            }
+                AdicionarCritica("Crítica - Pedido não pode ficar sem item de pedido");
 
             if (string.IsNullOrEmpty(CEP))
-            {
-                AdicionarCritica("CEP deve estar preenchido");
-            }
+                AdicionarCritica("Crítica - CEP deve estar preenchido");
+
+            if (string.IsNullOrEmpty(Estado))
+                AdicionarCritica("Crítica - Estado deve estar preenchido");
+
+            if (string.IsNullOrEmpty(Cidade))
+                AdicionarCritica("Crítica - Cidade deve estar preenchido");
+
+
+            if (string.IsNullOrEmpty(EnderecoCompleto))
+                AdicionarCritica("Crítica - Endereço deve estar preenchido");
+
+            if (string.IsNullOrEmpty(NumeroEndereco))
+                AdicionarCritica("Crítica - Número deve estar preenchido");
+
+            if (FormaPagamentoId == 0)
+                AdicionarCritica("Crítica - Não foi informado a forma de pagamento");
         }
     }
 }
