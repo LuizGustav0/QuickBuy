@@ -37,9 +37,12 @@ namespace QuickBuy.Web
                                                         option.UseLazyLoadingProxies()
                                                                     .UseMySql(connectionString, m => 
                                                                              m.MigrationsAssembly("QuickBuy.Repositorio")));
-           
-            
-    // In production, the Angular files will be served from this directory
+
+            services.AddScoped<IProdutoRepositorio, ProdutoRepositorio>();
+            services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
+            services.AddScoped<IPedidoRepositorio, PedidoRepositorio>();
+
+            // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
@@ -81,6 +84,9 @@ namespace QuickBuy.Web
                 if (env.IsDevelopment())
                 {
                     spa.UseAngularCliServer(npmScript: "start");
+
+                    //Rodar angular separado
+                    //spa.UseProxyToSpaDevelopmentServer("htttp://localhost:4200/");
                 }
             });
         }
