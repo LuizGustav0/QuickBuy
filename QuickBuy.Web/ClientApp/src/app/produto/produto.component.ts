@@ -1,16 +1,64 @@
-import {Component} from "@angular/core"
+import {Component, OnInit} from "@angular/core"
+import { ProdutoServico } from "../servicos/produto/produto.servico";
+import { Produto } from "../modelo/produto";
 
 @Component({
   selector: "app-produto",
-  template: "<html><body>{{obterNome()}}</body></html>"
+  templateUrl: "./produto.component.html",
+  styleUrls: ["./produto.component.css"]
 })
-export class ProdutoComponent { //Nome das classes começando com maíusculo por conta da convenção PascalCase
-  public nome: string;
-  public liberoParaVenda: boolean;
+export class ProdutoComponent implements OnInit {
+  public produto: Produto;
+  public arquivoSelecionado: File;
+  public ativar_spinner: boolean;
+  public mensagem: string;
 
-  /* camelCase para variáveis, atributos e nomes das funções */
-  public obterNome(): string{
-      return "Samsung";
-    }
+  constructor(private produtoServico: ProdutoServico) { }
+
+  ngOnInit(): void {
+    this.produto = new Produto();
+  }
+
+  public inputChange(files: FileList) {
+    this.arquivoSelecionado = files.item(0);
+    this.ativar_spinner = true;
+    this.produtoServico.enviarArquivo(this.arquivoSelecionado)
+      .subscribe(
+        nomeArquivo => {
+          this.produto.nomeArquivo = nomeArquivo;
+          console.log(nomeArquivo);
+          this.ativar_spinner = false;
+        },
+        e => {
+          console.log(e.error);
+          this.ativar_spinner = false;
+        }
+      );
+    //alert(this.arquivoSelecionado.name)
+  }
+
+  public cadastrar() {
+    this.ativarEspera();
+    this.produtoServico.cadastar(this.produto)
+      .subscribe(
+        produtoJson => {
+          console.log(produtoJson);
+          this.desativarEspera();
+        },
+        e => {
+          console.log(e.error);
+          this.mensagem = e.error;
+          this.desativarEspera();
+        }
+      );
+  }
+
+  public ativarEspera() {
+    this.ativar_spinner = true;
+  }
+
+  public desativarEspera() {
+    this.ativar_spinner = false;
+  }
 
 }
