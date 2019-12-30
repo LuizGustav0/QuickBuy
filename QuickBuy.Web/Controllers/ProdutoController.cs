@@ -30,7 +30,7 @@ namespace QuickBuy.Web.Controllers
         {
             try
             {
-                return Ok(_produtoRepositorio.ObterTodos());
+                return Json(_produtoRepositorio.ObterTodos());
             }
             catch (Exception ex)
             {
@@ -52,6 +52,24 @@ namespace QuickBuy.Web.Controllers
 
                 _produtoRepositorio.Adicionar(produto);
                 return Created("api/produto", produto);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
+
+
+        [HttpPost("Deletar")]
+        public IActionResult Deletar([FromBody] Produto produto)
+        {
+            try
+            {
+
+                // produto recebido do FromBody, deve ter a propriedade Id > 0
+                _produtoRepositorio.Remover(produto);
+                return Json(_produtoRepositorio.ObterTodos());
+
             }
             catch (Exception ex)
             {
