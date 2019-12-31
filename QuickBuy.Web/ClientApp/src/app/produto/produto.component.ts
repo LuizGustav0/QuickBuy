@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core"
+import { Component, OnInit } from "@angular/core"
 import { ProdutoServico } from "../servicos/produto/produto.servico";
 import { Produto } from "../modelo/produto";
 import { Router } from "@angular/router";
@@ -17,7 +17,12 @@ export class ProdutoComponent implements OnInit {
   constructor(private produtoServico: ProdutoServico, private router: Router) { }
 
   ngOnInit(): void {
-    this.produto = new Produto();
+    var produtoSession = sessionStorage.getItem('produtoSession')
+    if (produtoSession) {
+      this.produto = JSON.parse(produtoSession);
+    } else {
+      this.produto = new Produto();
+    }    
   }
 
   public inputChange(files: FileList) {

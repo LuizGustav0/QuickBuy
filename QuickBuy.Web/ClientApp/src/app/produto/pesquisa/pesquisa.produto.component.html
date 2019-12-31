@@ -29,7 +29,7 @@
       <td style="width:30%">
         <img src="../../../../../arquivos/{{p.nomeArquivo}} " style="width:50%;height:auto" />
       </td>
-      <td style="width:5%;"><button class="btn btn-success">Editar</button></td>
+      <td style="width:5%;"><button class="btn btn-success" (click)="editarProduto(p)">Editar</button></td>
       <td style="width:5%;"><button class="btn btn-danger" (click)="deletarProduto(p)">Deletar</button></td>
     </tr>
   </tbody>

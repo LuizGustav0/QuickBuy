@@ -16,7 +16,7 @@ namespace QuickBuy.Web.Controllers
         private IHttpContextAccessor _httpContextAccessor;
         private IHostingEnvironment _hostingEnvironment;
 
-        public ProdutoController(IProdutoRepositorio produtoRepositorio, 
+        public ProdutoController(IProdutoRepositorio produtoRepositorio,
                                  IHttpContextAccessor httpContextAccessor,
                                  IHostingEnvironment hostingEnvironment)
         {
@@ -50,7 +50,15 @@ namespace QuickBuy.Web.Controllers
                     return BadRequest(produto.ObterMensagensValidacao());
                 }
 
-                _produtoRepositorio.Adicionar(produto);
+                if (produto.Id > 0)
+                {
+                    _produtoRepositorio.Atualizar(produto);
+                }
+                else
+                {
+                    _produtoRepositorio.Adicionar(produto);
+                }
+
                 return Created("api/produto", produto);
             }
             catch (Exception ex)

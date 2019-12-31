@@ -29,13 +29,13 @@
        [(ngModel)]="produto.descricao"
        #descricao="ngModel"
        required
-       minlength="50" />
+       minlength="55" />
 <div class="invalid-feedback mb-2" *ngIf="descricao.invalid && (descricao.dirty || descricao.touched) ">
   <div *ngIf="descricao.errors.required">
     Descrição do produto é de preenchimento obrigatório
   </div>
   <div *ngIf="descricao.errors.minlength">
-    Campo deve ter no mínimo 50 caracteres
+    Campo deve ter no mínimo 55 caracteres
   </div>
 </div>
 
@@ -68,10 +68,11 @@
 
 
 <div class="form-inline mb-2">
-  <button class="btn btn-primary" style="margin-right:4px;" (click)="cadastrar()" [disabled]="ativar_spinner">
+  <button class="btn btn-primary" style="margin-right:6px;" (click)="cadastrar()" [disabled]="ativar_spinner">
     <span class="spinner-border spinner-border-sm" *ngIf="ativar_spinner"></span>
     Cadastrar
   </button>
+  <button class="btn btn-secondary" [routerLink]="['/pesquisar-produto']">Cancelar</button>
 </div>
 
 <div class="alert alert-danger col-md-4" *ngIf="mensagem">
