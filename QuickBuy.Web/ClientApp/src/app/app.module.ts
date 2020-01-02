@@ -17,6 +17,7 @@ import { LojaPesquisaComponent } from './loja/pesquisa/loja.pesquisa.component';
 import { TruncateModule } from 'ng2-truncate'
 import { LojaProdutoComponent } from './loja/produto/loja.produto.component';
 import { LojaEfetivarComponent } from './loja/efetivar/loja.efetivar.component';
+import { PedidoServico } from './servicos/pedido/pedido.servico';
 
 
 
@@ -41,14 +42,14 @@ import { LojaEfetivarComponent } from './loja/efetivar/loja.efetivar.component';
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'produto', component: ProdutoComponent, canActivate:[GuardaRotas] },
-      { path: 'pesquisar-produto', component: PesquisaProdutoComponent },      
+      { path: 'pesquisar-produto', component: PesquisaProdutoComponent, canActivate: [GuardaRotas] },      
       { path: 'entrar', component: LoginComponent },
       { path: 'novo-usuario', component: CadastroUsuarioComponent },
       { path: 'loja-produto', component: LojaProdutoComponent },
       { path: 'loja-efetivar', component: LojaEfetivarComponent,canActivate:[GuardaRotas] },
     ])
   ],
-  providers: [UsuarioServico, ProdutoServico],
+  providers: [UsuarioServico, ProdutoServico, PedidoServico],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

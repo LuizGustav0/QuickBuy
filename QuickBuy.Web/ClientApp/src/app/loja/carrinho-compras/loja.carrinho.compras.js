@@ -21,6 +21,7 @@ var LojaCarrinhoCompras = /** @class */ (function () {
         if (produtoLocalStorage) {
             return JSON.parse(produtoLocalStorage);
         }
+        return this.produtos;
     };
     LojaCarrinhoCompras.prototype.removerProduto = function (produto) {
         var produtoLocalStorage = localStorage.getItem("produtoLocalStorage");
@@ -32,6 +33,12 @@ var LojaCarrinhoCompras = /** @class */ (function () {
     };
     LojaCarrinhoCompras.prototype.atualizar = function (produtos) {
         localStorage.setItem("produtoLocalStorage", JSON.stringify(produtos));
+    };
+    LojaCarrinhoCompras.prototype.temItensCarrinho = function () {
+        var itens = this.obterProdutos();
+        if (itens) {
+            return (itens.length > 0);
+        }
     };
     return LojaCarrinhoCompras;
 }());
