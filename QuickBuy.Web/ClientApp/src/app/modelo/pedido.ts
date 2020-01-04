@@ -1,6 +1,7 @@
 import { ItemPedido } from "./itemPedido";
 
 export class Pedido {
+
   public id: number;
   public dataPedido: Date;
   public usuarioId: number;
@@ -17,4 +18,5 @@ export class Pedido {
     this.dataPedido = new Date();
     this.itensPedido = [];
   }
+
 }

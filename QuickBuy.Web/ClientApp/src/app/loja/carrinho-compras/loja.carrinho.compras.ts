@@ -1,6 +1,7 @@
 import { Produto } from "../../modelo/produto";
 
 export class LojaCarrinhoCompras {
+
   public produtos: Produto[] = [];
 
 
@@ -47,5 +48,9 @@ export class LojaCarrinhoCompras {
     if (itens) {
       return (itens.length > 0);
     }
+  }
+
+  public limparCarrinhoCompras() {
+    localStorage.setItem("produtoLocalStorage", "");
   }
 }
